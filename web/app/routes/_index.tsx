@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import "../styles/index.css";
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,32 +12,40 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+      <h1>Salsa Remix</h1>
+      <div>
+        <p>Included and configured libraries:</p>
+        <ul>
+          <li>
+            <a href="https://vitejs.dev/">vitejs</a>
+          </li>
+          <li>
+            <a href="https://zod.dev/"> zod</a>
+          </li>
+          <li>
+            <a href="https://remix-forms.seasoned.cc/get-started">
+              remix-forms
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p>Routes:</p>
+        <ul>
+          <li>
+            <Link to="/auth/register">Register</Link>
+          </li>
+          <li>
+            <Link to="/auth/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/auth/logout">Logout</Link>
+          </li>
+          <li>
+            <Link to="/auth/recovery">Recovery password</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
