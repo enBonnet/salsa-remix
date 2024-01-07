@@ -44,6 +44,9 @@ export default function Index() {
           <li>
             <Link to="/auth/recovery">Recovery password</Link>
           </li>
+          <li>
+            <Link to="/users">Users</Link>
+          </li>
         </ul>
       </div>
     </div>
