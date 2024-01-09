@@ -1,3 +1,11 @@
+# Functions
+
+- ✅ Login
+- ✅ Logout
+- ✅ Session context handler
+- ⏰ Register
+- ⏰ Recovery password
+
 # Configuration
 
 ## Strapi User Collection
