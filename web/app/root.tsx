@@ -5,12 +5,25 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useRouteError,
 } from "@remix-run/react";
 import "~/styles/index.css";
 import { isProduction } from "./contants";
+import { LoaderFunction, json } from "@remix-run/node";
+import { getUserData } from "./services/session.server";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const userData = await getUserData(request);
+
+  return json({
+    userData,
+  });
+};
 
 export default function App() {
+  const { userData } = useLoaderData();
+
   return (
     <html lang="en">
       <head>
@@ -20,7 +33,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Outlet context={{ user: userData?.user }} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

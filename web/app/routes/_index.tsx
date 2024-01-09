@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import "../styles/index.css";
-import { Link } from "@remix-run/react";
+import { Form, Link, useOutletContext } from "@remix-run/react";
+import React from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -10,6 +11,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const context = useOutletContext();
+
   return (
     <div>
       <h1>Salsa Remix</h1>
@@ -32,18 +35,22 @@ export default function Index() {
       <div>
         <p>Routes:</p>
         <ul>
-          <li>
-            <Link to="/auth/register">Register</Link>
-          </li>
-          <li>
-            <Link to="/auth/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/auth/logout">Logout</Link>
-          </li>
-          <li>
-            <Link to="/auth/recovery">Recovery password</Link>
-          </li>
+          {context.user ? (
+            <li>
+              <Form action="/auth/logout" method="post" className="logout">
+                <button type="submit">Logout</button>
+              </Form>
+            </li>
+          ) : (
+            <React.Fragment>
+              <li>
+                <Link to="/auth/register">Register</Link>
+              </li>
+              <li>
+                <Link to="/auth/login">Login</Link>
+              </li>
+            </React.Fragment>
+          )}
           <li>
             <Link to="/users">Users</Link>
           </li>
