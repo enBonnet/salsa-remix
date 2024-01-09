@@ -8,6 +8,7 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import "~/styles/index.css";
+import { isProduction } from "./contants";
 
 export default function App() {
   return (
@@ -30,19 +31,22 @@ export default function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
-  console.error(error);
-  return (
-    <html lang="en">
-      <head>
-        <title>Oh no!</title>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <div>Ups something went wrong.</div>
-        {/* add the UI you want your users to see */}
-        <Scripts />
-      </body>
-    </html>
-  );
+
+  if (isProduction) {
+    return (
+      <html lang="en">
+        <head>
+          <title>Oh no!</title>
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          <div>Ups something went wrong.</div>
+          <Scripts />
+        </body>
+      </html>
+    );
+  }
+
+  return <div>{JSON.stringify(error)}</div>;
 }
