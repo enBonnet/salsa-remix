@@ -57,6 +57,5 @@ export async function register(data: RegisterParams) {
   });
 
   const res = await register.json();
-  console.log(res);
   return res;
 }
