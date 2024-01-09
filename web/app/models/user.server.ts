@@ -27,3 +27,21 @@ export async function getUserByUsername(username: string | undefined) {
 
   return res[0];
 }
+
+type LoginParams = {
+  identifier: string;
+  password: string;
+};
+
+export async function login(data: LoginParams) {
+  const local = await fetch(`${apiUrl}/auth/local`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const res = await local.json();
+  return res;
+}

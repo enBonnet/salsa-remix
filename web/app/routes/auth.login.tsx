@@ -1,26 +1,38 @@
 import { z } from "zod";
 import { makeDomainFunction } from "domain-functions";
-import { type ActionFunction } from "@remix-run/node";
-import { formAction } from "~/form-action.server";
-import { Form } from "~/form";
+import { type ActionFunction, json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { performMutation } from "remix-forms";
+import { Form } from "~/form";
+import { login } from "~/models/user.server";
+import { createUserSession } from "~/services/session.server";
 
 const schema = z.object({
   email: z.string().min(1).email(),
   password: z.string().min(1),
 });
 
-const mutation = makeDomainFunction(schema)(async (values) =>
-  console.log(values)
-);
+const mutation = makeDomainFunction(schema)(async (values) => {
+  return login({
+    identifier: values.email,
+    password: values.password,
+  });
+});
 
-export const action: ActionFunction = async ({ request }) =>
-  formAction({
+export const action: ActionFunction = async ({ request }) => {
+  const result = await performMutation({
     request,
     schema,
     mutation,
-    successPath: "/auth/success",
   });
+
+  if (!result.success) return json(result, 400);
+
+  return createUserSession(
+    { jwt: result.data.jwt, user: result.data.user },
+    "/"
+  );
+};
 
 export default function LoginPage() {
   return (
