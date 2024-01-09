@@ -1,9 +1,11 @@
 import { z } from "zod";
 import { makeDomainFunction } from "domain-functions";
-import { type ActionFunction } from "@remix-run/node";
-import { formAction } from "~/form-action.server";
-import { Form } from "~/form";
+import { performMutation } from "remix-forms";
 import { Link } from "@remix-run/react";
+import { json, type ActionFunction } from "@remix-run/node";
+import { Form } from "~/form";
+import { register } from "~/models/user.server";
+import { createUserSession } from "~/services/session.server";
 
 const schema = z.object({
   username: z.string().min(1),
@@ -11,17 +13,26 @@ const schema = z.object({
   password: z.string().min(1),
 });
 
-const mutation = makeDomainFunction(schema)(async (values) =>
-  console.log(values)
-);
+export type RegisterParams = z.infer<typeof schema>;
 
-export const action: ActionFunction = async ({ request }) =>
-  formAction({
+const mutation = makeDomainFunction(schema)(async (values) => {
+  return register(values);
+});
+
+export const action: ActionFunction = async ({ request }) => {
+  const result = await performMutation({
     request,
     schema,
     mutation,
-    successPath: "/auth/success",
   });
+
+  if (!result.success) return json(result, 400);
+
+  return createUserSession(
+    { jwt: result.data.jwt, user: result.data.user },
+    "/"
+  );
+};
 
 export default function RegisterPage() {
   return (

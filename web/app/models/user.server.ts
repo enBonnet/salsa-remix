@@ -1,5 +1,6 @@
 import qs from "qs";
 import { apiUrl } from "~/contants";
+import { RegisterParams } from "~/routes/auth.register";
 
 export async function getUsers() {
   const profiles = await fetch(`${apiUrl}/users`);
@@ -43,5 +44,19 @@ export async function login(data: LoginParams) {
   });
 
   const res = await local.json();
+  return res;
+}
+
+export async function register(data: RegisterParams) {
+  const register = await fetch(`${apiUrl}/auth/local/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const res = await register.json();
+  console.log(res);
   return res;
 }

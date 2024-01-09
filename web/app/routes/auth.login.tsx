@@ -12,6 +12,8 @@ const schema = z.object({
   password: z.string().min(1),
 });
 
+export type LoginInputs = z.infer<typeof schema>;
+
 const mutation = makeDomainFunction(schema)(async (values) => {
   return login({
     identifier: values.email,
