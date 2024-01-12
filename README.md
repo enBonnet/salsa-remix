@@ -3,7 +3,7 @@
 - ✅ Login
 - ✅ Logout
 - ✅ Session context handler
-- ⏰ Register
+- ✅ Register
 - ⏰ Recovery password
 
 # Configuration
