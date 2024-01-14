@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import "../styles/index.css";
 import { Form, Link, useOutletContext } from "@remix-run/react";
 import React from "react";
+import { ContextType } from "~/types/data";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,7 +12,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const context = useOutletContext();
+  const context = useOutletContext<ContextType>();
 
   return (
     <div>
@@ -38,7 +39,9 @@ export default function Index() {
           {context.user ? (
             <li>
               <Form action="/auth/logout" method="post" className="logout">
-                <button type="submit">Logout</button>
+                <button className="link" type="submit">
+                  Logout
+                </button>
               </Form>
             </li>
           ) : (

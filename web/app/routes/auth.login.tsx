@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { makeDomainFunction } from "domain-functions";
 import { type ActionFunction, json } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, useActionData } from "@remix-run/react";
 import { performMutation } from "remix-forms";
 import { Form } from "~/form";
 import { login } from "~/models/user.server";
 import { createUserSession } from "~/services/session.server";
+import { type DataType } from "~/types/data";
 
 const schema = z.object({
   email: z.string().min(1).email(),
@@ -21,8 +22,13 @@ const mutation = makeDomainFunction(schema)(async (values) => {
   });
 });
 
+type ActionData = {
+  success: boolean;
+  data: DataType;
+};
+
 export const action: ActionFunction = async ({ request }) => {
-  const result = await performMutation({
+  const result = await performMutation<typeof schema, DataType>({
     request,
     schema,
     mutation,
@@ -30,13 +36,18 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!result.success) return json(result, 400);
 
-  return createUserSession(
-    { jwt: result.data.jwt, user: result.data.user },
-    "/"
-  );
+  if (result.success && result.data?.jwt) {
+    return createUserSession(
+      { jwt: result.data.jwt, user: result.data.user },
+      "/"
+    );
+  }
+
+  return json(result);
 };
 
 export default function LoginPage() {
+  const actionData = useActionData<ActionData>();
   return (
     <div>
       <div>Login</div>
@@ -47,11 +58,14 @@ export default function LoginPage() {
           password: "password",
         }}
       />
+      {actionData?.data?.error?.message ? (
+        <div>{actionData?.data?.error?.message}</div>
+      ) : null}
       <div>
         <Link to="/auth/register">I want to register my account.</Link>
       </div>
       <div>
-        <Link to="/auth/recovery">I forgot my password.</Link>
+        <Link to="/auth/forgot">I forgot my password.</Link>
       </div>
     </div>
   );

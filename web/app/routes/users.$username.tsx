@@ -1,6 +1,7 @@
 import { LoaderFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getUserByUsername } from "~/models/user.server";
+import { UserType } from "~/types/data";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const user = await getUserByUsername(params.username);
@@ -10,8 +11,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   });
 };
 
+type LoaderData = {
+  user: UserType;
+};
+
 export default function UsernamePage() {
-  const { user } = useLoaderData();
+  const { user } = useLoaderData<LoaderData>();
 
   if (!user) {
     return <div>Invalid user</div>;

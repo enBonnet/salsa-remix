@@ -4,7 +4,7 @@
 - ✅ Logout
 - ✅ Session context handler
 - ✅ Register
-- ⏰ Recovery password
+- ✅ Recovery password
 
 # Configuration
 
@@ -33,3 +33,15 @@ Authenticated Role:
 ### Create some users.
 
 Content manager -> User -> Create new entry.
+
+### Configure mail plugin
+
+Nodemailer provider is set, to change it you should update the `./cms/config/plugins.js`.
+
+If you want to use nodemailer as a provider, you'd have to generate a valid password, to do it you can follow [these steps](https://stackoverflow.com/a/72477193/9538308).
+
+### Confirm public auth resetPassword and forgotPassword
+
+Go to Settings -> Users & Permissions Plugin -> Roles -> Public -> Users-permissions.
+
+Under the Auth section: confirm if you have `resetPassword` and `forgotPassword` enabled.
