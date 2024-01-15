@@ -1,3 +1,9 @@
+# About
+
+Non-styled salsa remix.
+
+Integration placeholder app with Strapi as CMS and Remix as WEB.
+
 # Functions
 
 - ✅ Login
