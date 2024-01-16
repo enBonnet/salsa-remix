@@ -12,17 +12,16 @@ import "~/styles/index.css";
 import { isProduction } from "./contants";
 import { LoaderFunction, json } from "@remix-run/node";
 import { getUserData } from "./services/session.server";
+import { DataType } from "./types/data";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userData = await getUserData(request);
 
-  return json({
-    userData,
-  });
+  return json(userData);
 };
 
 export default function App() {
-  const { userData } = useLoaderData();
+  const loaderData = useLoaderData<DataType>();
 
   return (
     <html lang="en">
@@ -33,7 +32,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet context={{ user: userData?.user }} />
+        <Outlet context={{ user: loaderData?.user }} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

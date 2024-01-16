@@ -6,11 +6,12 @@ Integration placeholder app with Strapi as CMS and Remix as WEB.
 
 # Functions
 
-- ✅ Login
-- ✅ Logout
-- ✅ Session context handler
-- ✅ Register
-- ✅ Recovery password
+- ✅ Login.
+- ✅ Logout.
+- ✅ Session context handler.
+- ✅ Register.
+- ✅ Recovery password.
+- ✅ Protected resources.
 
 # Configuration
 

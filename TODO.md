@@ -1,4 +1,4 @@
-# To do
+# To do ⏰
 
 - ⏰ Configure workspaces.
-- ⏰ Handle protected routes or resources.
+- ⏰ Protected routes.

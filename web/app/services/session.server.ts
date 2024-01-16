@@ -1,5 +1,6 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import { isProduction, userSessionSecret } from "~/contants";
+import { DataType } from "~/types/data";
 
 const getUserSession = (request: Request) => {
   return getSession(request.headers.get("Cookie"));
@@ -21,7 +22,24 @@ export const { getSession, commitSession, destroySession } =
     },
   });
 
-export const createUserSession = async (userData: any, redirectTo: string) => {
+export const createUserSession = async (
+  userData: DataType,
+  redirectTo: string
+) => {
+  const session = await getSession();
+  session.set("userData", userData);
+
+  return redirect(redirectTo, {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });
+};
+
+export const updateUserSession = async (
+  userData: DataType,
+  redirectTo: string
+) => {
   const session = await getSession();
   session.set("userData", userData);
 
@@ -33,7 +51,7 @@ export const createUserSession = async (userData: any, redirectTo: string) => {
 };
 
 // function to get user data from session
-export const getUserData = async (request: Request): Promise<any | null> => {
+export const getUserData = async (request: Request) => {
   const session = await getUserSession(request);
   const userData = session.get("userData");
 

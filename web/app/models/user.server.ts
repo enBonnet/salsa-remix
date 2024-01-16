@@ -3,6 +3,7 @@ import { apiUrl } from "~/contants";
 import { ForgotParams } from "~/routes/auth.forgot";
 import { RegisterParams } from "~/routes/auth.register";
 import { ResetParams } from "~/routes/auth.reset";
+import { UserEditInput } from "~/routes/users.$username.edit";
 
 export async function getUsers() {
   const profiles = await fetch(`${apiUrl}/users`);
@@ -87,3 +88,18 @@ export async function resetPassword(data: ResetParams) {
   const res = await reset.json();
   return res;
 }
+
+export const updateUser = async (data: UserEditInput, token: string) => {
+  const { id } = data;
+  const user = await fetch(`${apiUrl}/users/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const res = await user.json();
+
+  return res;
+};

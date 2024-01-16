@@ -3,6 +3,7 @@ import "../styles/index.css";
 import { Form, Link, useOutletContext } from "@remix-run/react";
 import React from "react";
 import { ContextType } from "~/types/data";
+import { LogoutButton } from "~/components/LogoutButton";
 
 export const meta: MetaFunction = () => {
   return [
@@ -38,11 +39,7 @@ export default function Index() {
         <ul>
           {context.user ? (
             <li>
-              <Form action="/auth/logout" method="post" className="logout">
-                <button className="link" type="submit">
-                  Logout
-                </button>
-              </Form>
+              <LogoutButton />
             </li>
           ) : (
             <React.Fragment>
