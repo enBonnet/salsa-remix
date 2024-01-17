@@ -52,3 +52,11 @@ If you want to use nodemailer as a provider, you'd have to generate a valid pass
 Go to Settings -> Users & Permissions Plugin -> Roles -> Public -> Users-permissions.
 
 Under the Auth section: confirm if you have `resetPassword` and `forgotPassword` enabled.
+
+### References
+
+Articles that I've been reading to solve doubts.
+
+- [Strapi v4 Authentication with Remix](https://strapi.io/blog/strapi-v4-authentication-with-remix)
+- [Users & Permissions plugin](https://docs.strapi.io/dev-docs/plugins/users-permissions#authentication)
+- [Examples cookbook: Authentication flow with JWT](https://docs.strapi.io/dev-docs/backend-customization/examples/authentication)
