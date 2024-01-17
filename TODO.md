@@ -1,4 +1,4 @@
 # To do ⏰
 
-- ⏰ Configure workspaces.
-- ⏰ Protected routes.
+- ⏰ Docker configuration to cms
+- ⏰ Docker configuration to web
