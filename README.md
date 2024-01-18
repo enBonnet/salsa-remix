@@ -53,6 +53,10 @@ Go to Settings -> Users & Permissions Plugin -> Roles -> Public -> Users-permiss
 
 Under the Auth section: confirm if you have `resetPassword` and `forgotPassword` enabled.
 
+### Deploy
+
+Both apps has pre-configured Docker files to deploy.
+
 ### References
 
 Articles that I've been reading to solve doubts.
@@ -60,3 +64,5 @@ Articles that I've been reading to solve doubts.
 - [Strapi v4 Authentication with Remix](https://strapi.io/blog/strapi-v4-authentication-with-remix)
 - [Users & Permissions plugin](https://docs.strapi.io/dev-docs/plugins/users-permissions#authentication)
 - [Examples cookbook: Authentication flow with JWT](https://docs.strapi.io/dev-docs/backend-customization/examples/authentication)
+- [Running Strapi in a Docker container](https://docs.strapi.io/dev-docs/installation/docker)
+- [How to Dockerize a Remix App](https://hannadrehman.com/blog/how-to-dockerize-a-remix-run-app)
