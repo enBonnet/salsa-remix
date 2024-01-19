@@ -8,7 +8,8 @@
     "dev": "remix vite:dev",
     "lint": "biome check --apply ./app",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@remix-run/node": "^2.4.1",
@@ -29,11 +30,25 @@
     "@types/qs": "^6.9.11",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "husky": "^8.0.3",
     "typescript": "^5.1.6",
     "vite": "^5.0.0",
     "vite-tsconfig-paths": "^4.2.3"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "lint-staged": {
+    "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc}": [
+      "biome check --files-ignore-unknown=true",
+      "biome check --apply --no-errors-on-unmatched",
+      "biome check --apply --organize-imports-enabled=false --no-errors-on-unmatched",
+      "biome check --apply-unsafe --no-errors-on-unmatched",
+      "biome format --write --no-errors-on-unmatched",
+      "biome lint --apply --no-errors-on-unmatched"
+    ],
+    "*": [
+      "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
   }
 }
