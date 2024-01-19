@@ -1,5 +1,3 @@
-import { z } from "zod";
-import { makeDomainFunction } from "domain-functions";
 import {
   type ActionFunction,
   type LoaderFunction,
@@ -7,7 +5,9 @@ import {
   redirect,
 } from "@remix-run/node";
 import { Link, useActionData, useLoaderData } from "@remix-run/react";
+import { makeDomainFunction } from "domain-functions";
 import { performMutation } from "remix-forms";
+import { z } from "zod";
 import { Form } from "~/form";
 import { resetPassword } from "~/models/user.server";
 import { createUserSession } from "~/services/session.server";
@@ -60,7 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (result.success && result.data?.jwt) {
     return createUserSession(
       { jwt: result.data.jwt, user: result.data.user },
-      "/"
+      "/",
     );
   }
 

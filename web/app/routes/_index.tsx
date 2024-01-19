@@ -1,9 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
-import "../styles/index.css";
 import { Form, Link, useOutletContext } from "@remix-run/react";
 import React from "react";
-import { ContextType } from "~/types/data";
 import { LogoutButton } from "~/components/LogoutButton";
+import { ContextType } from "~/types/data";
+import "../styles/index.css";
 
 export const meta: MetaFunction = () => {
   return [

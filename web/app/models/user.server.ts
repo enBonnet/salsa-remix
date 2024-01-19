@@ -23,7 +23,7 @@ export async function getUserByUsername(username: string | undefined) {
     },
     {
       encodeValuesOnly: true, // prettify URL
-    }
+    },
   );
 
   const profile = await fetch(`${apiUrl}/users?${query}`);

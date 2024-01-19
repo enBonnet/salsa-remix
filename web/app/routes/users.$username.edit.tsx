@@ -8,10 +8,10 @@ import { useActionData, useLoaderData } from "@remix-run/react";
 import { makeDomainFunction } from "domain-functions";
 import { performMutation } from "remix-forms";
 import { z } from "zod";
+import { Form } from "~/form";
 import { getUserByUsername, updateUser } from "~/models/user.server";
 import { getUserData, updateUserSession } from "~/services/session.server";
 import { DataType, UserType } from "~/types/data";
-import { Form } from "~/form";
 
 const schema = z.object({
   email: z.string().min(1).email(),
@@ -31,11 +31,11 @@ export type UserEditInput = UserEdit & {
 
 const mutation = makeDomainFunction(
   schema,
-  environmentSchema
+  environmentSchema,
 )(async (values, environment) => {
   return updateUser(
     { email: values.email, username: values.username, id: environment.userId },
-    environment.token
+    environment.token,
   );
 });
 
@@ -57,7 +57,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (result.success) {
     return updateUserSession(
       { jwt: userData?.jwt, user: result.data },
-      `/users/${result?.data?.username}`
+      `/users/${result?.data?.username}`,
     );
   }
 

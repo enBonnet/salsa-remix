@@ -1,3 +1,4 @@
+import { LoaderFunction, json } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -10,7 +11,6 @@ import {
 } from "@remix-run/react";
 import "~/styles/index.css";
 import { isProduction } from "./contants";
-import { LoaderFunction, json } from "@remix-run/node";
 import { getUserData } from "./services/session.server";
 import { DataType } from "./types/data";
 

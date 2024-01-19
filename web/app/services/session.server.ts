@@ -24,7 +24,7 @@ export const { getSession, commitSession, destroySession } =
 
 export const createUserSession = async (
   userData: DataType,
-  redirectTo: string
+  redirectTo: string,
 ) => {
   const session = await getSession();
   session.set("userData", userData);
@@ -38,7 +38,7 @@ export const createUserSession = async (
 
 export const updateUserSession = async (
   userData: DataType,
-  redirectTo: string
+  redirectTo: string,
 ) => {
   const session = await getSession();
   session.set("userData", userData);

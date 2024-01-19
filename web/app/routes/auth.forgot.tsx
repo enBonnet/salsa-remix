@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { makeDomainFunction } from "domain-functions";
 import { type ActionFunction, json } from "@remix-run/node";
 import { Link, useActionData } from "@remix-run/react";
+import { makeDomainFunction } from "domain-functions";
 import { performMutation } from "remix-forms";
+import { z } from "zod";
 import { Form } from "~/form";
 import { sendResetMail } from "~/models/user.server";
 
